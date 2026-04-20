@@ -10,7 +10,7 @@ Una cadena formada por los símbolos `(`, `)`, `[`, `]`, `{`, `}` se dice **bien
 
 2. Diseñar un algoritmo que determine si una cadena está bien balanceada.
 
-    ```text
+    ```
     función estaBalanceada(cadena):
     pila = nueva Pila()
     
@@ -32,6 +32,7 @@ Una cadena formada por los símbolos `(`, `)`, `[`, `]`, `{`, `}` se dice **bien
                 retornar falso
                 
     retornar pila.estaVacia()
+    ```
 
 3. Enunciar una invariante del recorrido de la cadena.
 
