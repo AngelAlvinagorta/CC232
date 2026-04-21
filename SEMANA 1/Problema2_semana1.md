@@ -1,8 +1,8 @@
-#### Ejercicio 2. Cadena bien balanceada usando el ADT Pila
+### Ejercicio 2. Cadena bien balanceada usando el ADT Pila
 
 Una cadena formada por los símbolos `(`, `)`, `[`, `]`, `{`, `}` se dice **bien balanceada** si cada símbolo de apertura tiene su correspondiente símbolo de cierre y el orden de anidamiento es correcto.
 
-##### Se pide
+#### Se pide
 
 1. Especificar las operaciones básicas del **ADT Pila** que se necesitan para resolver este problema.
 

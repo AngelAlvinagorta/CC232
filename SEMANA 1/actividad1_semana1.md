@@ -7,20 +7,20 @@
 
 1. Expliquen con sus palabras la diferencia entre **problema**, **algoritmo**, **ADT** e **implementación**.
 
-    * Problema: Es la tarea a resolver solo define las entradas (la situación inicial) y salidas (el resultado deseado).
+    * **Problema**: Es la tarea a resolver solo define las entradas (la situación inicial) y salidas (el resultado deseado).
     Ejemplo: Quiero ordenar un arreglo {5, 1, 4, 2, 8, 3} de menor a mayor.
-    * Algoritmo: Los pasos lógicos para llegar a la solución.
+    * **Algoritmo**: Los pasos lógicos para llegar a la solución.
     Ejemplo: Comparar los numeros en pares y ordenarlos. Este ejemplo en el caso queramos usar el método de ordenamiento de la burbuja. 
-    * ADT: El modelo teorico que define el conjunto de datos y las operaciones que haremos con estos, sin ser necesario saber como se gestiona la memoria. 
+    * **ADT**: El modelo teorico que define el conjunto de datos y las operaciones que haremos con estos, sin ser necesario saber como se gestiona la memoria. 
     Ejemplo: Usaremos una lista indexada donde debemos alamcenar elementos en un orden secuencial intercambiandolos en caso esten desordenados.
-    * Implementación: Es el codigo que terminamos compilando y ejecutando. Siendo la representación de las ideas previas
+    * **Implementación**: Es el codigo que terminamos compilando y ejecutando. Siendo la representación de las ideas previas
     Ejemplo: El codigo `bubble_sort.cpp`.
 
 2. En `bubble_sort.cpp`, expliquen qué observable conecta correctitud y costo.
 
     * Se conectan mediante:
-        1. "changed" que indica si hubo al menos un intercambio en la pasada actual y al ser falso indica que no hay desorden local y evita pasadas innecesarias.
-        2. "lastSwapIndex" que registra la posición del último intercambio de cada pasada garantizando el orden y mejorando a su vez el costo.
+        1. `changed` que indica si hubo al menos un intercambio en la pasada actual y al ser falso indica que no hay desorden local y evita pasadas innecesarias.
+        2. `lastSwapIndex` que registra la posición del último intercambio de cada pasada garantizando el orden y mejorando a su vez el costo.
 
 3. En `power.cpp`, expliquen por qué `power` mejora la idea de una versión ingenua.
 
@@ -36,14 +36,14 @@
 
 6. En `demo_adt_secuencia.cpp`, expliquen por qué la misma interfaz puede convivir con representaciones distintas.
 
-    * Tenemos a "FixedArraySequence" y "VectorSequence" ambas pueden convivir ya que las 2 heredan de "IntSequence" sus métodos (polimorfismo) ofreciendo la misma intefaz externa y ocultando los detalles internos.
+    * Tenemos a `FixedArraySequence` y `VectorSequence` ambas pueden convivir ya que las 2 heredan de `IntSequence` sus métodos (polimorfismo) ofreciendo la misma intefaz externa y ocultando los detalles internos.
 
 ### Bloque 2 - Respuestas
 1. En `demo_bubblesort.cpp`, ¿qué salida sirve para defender costo y no solo resultado?
 
-    * "comparaciones =" : Demuestra matemáticamente que la versión optimizada hizo menos trabajo.
-    * "intercambios =" : Mide el costo de escritura en memoria.
-    * "ultimo swap =" : Explica por qué se reduce el costo.
+    * **comparaciones** = : Demuestra matemáticamente que la versión optimizada hizo menos trabajo.
+    * **intercambios** = : Mide el costo de escritura en memoria.
+    * **ultimo swap** = : Explica por qué se reduce el costo.
 
 2. En `demo_power.cpp`, ¿qué comparación concreta muestra una mejora algorítmica?
 
@@ -55,9 +55,11 @@
 
 4. En `demo_countones.cpp`, ¿qué ejemplo ayuda más a distinguir valor numérico de tamaño en bits?
 
-    * const unsigned int x = 0b101101001u;
+    ```
+    const unsigned int x = 0b101101001u;
     std::cout << "x = " << x << " = " << std::bitset<16>(x) << "\n";
-     Este ejemplo muestra el valor decimal vs la representación de bits y hace evidente que 361 ocupa solo 9 bits.
+    ```
+    Este ejemplo muestra el valor decimal vs la representación de bits y hace evidente que 361 ocupa solo 9 bits.
 
 ### Bloque 3 - Respuestas
 
