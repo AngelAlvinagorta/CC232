@@ -12,7 +12,7 @@
     * **Algoritmo**: Los pasos lógicos para llegar a la solución.
     Ejemplo: Comparar los numeros en pares y ordenarlos. Este ejemplo en el caso queramos usar el método de ordenamiento de la burbuja. 
     * **ADT**: El modelo teorico que define el conjunto de datos y las operaciones que haremos con estos, sin ser necesario saber como se gestiona la memoria. 
-    Ejemplo: Usaremos una lista indexada donde debemos alamcenar elementos en un orden secuencial intercambiandolos en caso esten desordenados.
+    Ejemplo: Usaremos una lista indexada donde debemos almacenar elementos en un orden secuencial intercambiandolos en caso esten desordenados.
     * **Implementación**: Es el codigo que terminamos compilando y ejecutando. Siendo la representación de las ideas previas
     Ejemplo: El codigo `bubble_sort.cpp`.
 
@@ -24,7 +24,7 @@
 
 3. En `power.cpp`, expliquen por qué `power` mejora la idea de una versión ingenua.
 
-    * Es debido a que `powerBF` (la versión ingenua) para hallar 3^5 lo hace calculando 3x3x3x3x3 el cual presenta costo O(n), en cambio `power` para hallar 3^5 lo hace calculando 3x(3^2)^((5-1)/2) el cual presenta un costo de O(logn), el cual es mucho menor conforme el exponente aumenta.
+    * Es debido a que `powerBF` (la versión ingenua) para hallar 3^5 lo hace calculando 3x3x3x3x3 el cual presenta costo `O(n)`, en cambio `power` para hallar 3^5 lo hace calculando 3x(3^2)^((5-1)/2) el cual presenta un costo de `O(logn)`, el cual es mucho menor conforme el exponente aumenta.
 
 4. En `fibonacci.cpp`, expliquen por qué una función puede ser correcta y aun así ser una mala elección práctica.
 
@@ -79,7 +79,8 @@
 4. Elijan **una** pregunta de `preguntas_semana1.md` y respóndanla bien.
 
     * ¿Qué es complejidad temporal?
-    Describe cómo cambia el tiempo de ejecución de un algoritmo conforme crece el tamaño de los datos de entrada.
+
+        * Describe cómo cambia el tiempo de ejecución de un algoritmo conforme crece el tamaño de los datos de entrada.
 
 5. Usen la rúbrica para autoevaluarse en:
 
