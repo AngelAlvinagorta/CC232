@@ -63,25 +63,49 @@
    * Si la representación son bloques fragmentados matemáticamente, el desperdicio espacial será bajo `O(√n)`, pero el costo temporal real será más alto.
 
 #### Bloque 2 - Demostración y trazado guiado
-Construye una tabla con cuatro columnas:
-- Archivo
-- Salida u observable importante
-- Idea estructural
-- Argumento de costo o espacio
+
+   | Archivo | Salida/observable importante | Idea estructural | Argumento de costo o espacio |
+   |---|---|---|---|
+   | `demo_array_basico.cpp` | El valor de `b.length` y su contenido  después de ejecutar `b = a`.| Arreglo de tamaño fijo con un mecanismo de asignación por transferencia de propiedad | Evita el costo temporal de `O(n)` de una copia profunda al transferir únicamente el control del bloque de memoria. |
+   | `demo_arraystack.cpp` | La impresión del `size` y el contenido antes y después de usar `add` y `remove`. | Implementación estándar de una pila sobre un arreglo dinámico continuo. | Muestra de que la estructura crece y decrece lógicamente, manteniendo el acceso por índice. |
+   | `demo_arraystack_explicado.cpp` | Mensajes explícitos en consola detallando "Se desplazan a la derecha/izquierda..." al insertar o eliminar, usando `debug_print`. | Versión que hace visible el mecanismo interno de mover elementos para abrir o cerrar huecos. | Muestra por qué las operaciones `add(i, x)` y `remove(i)` tienen una penalidad de tiempo de `O(n-i)`. |
+   | `demo_fastarraystack.cpp` | Ejecución de inserción en el medio idéntica en salida, pero sin bucles `for` internos. | Reemplazo de las iteraciones manuales por copias de memoria en bloque. | Mantiene la complejidad asintótica de `O(n-i)`, pero reduce drásticamente las constantes ocultas. |
+   | `demo_rootisharraystack.cpp` | La iteración transparente de elementos mediante `get(i)` a pesar de estar en distintos bloques. | Implementación de memoria distribuida en bloques fragmentados que crecen en progresión aritmética. | La complejidad de la estructura interna es invisible para el usuario, operando como un solo arreglo. |
+   | `demo_rootisharraystack_explicado.cpp` | La función `print_location` que muestra el mapeo de un índice lógico hacia un `bloque` y un `offset`. | Versión que revela la ecuación para enrutar datos en la cuadrícula dinámica. | Muestra cómo esta técnica reduce dramáticamente el desperdicio de memoria en comparación con duplicar un arreglo grande. |
+   | `demo_deng_vector.cpp` | La impresión simultánea en el bucle donde `size` crece de 1 en 1, pero `capacity` crece a saltos. | Separación entre los elementos lógicos en uso. | Es la prueba de cómo se distribuyen los costos de realojamiento para lograr un tiempo amortizado de `O(1)` al final del arreglo. |
+   | `demo_stl_vector_contraste.cpp` | Misma progresión escalonada de `size` vs `capacity`. | Actúa como un grupo de control basado en el estándar `std::vector` | Valida que las implementaciones propias emulan correctamente las estrategias de eficiencia. |
 
 1. En `demo_array_basico.cpp`, ¿qué deja claro sobre arreglo, longitud y asignación?
 
+   * **Arreglo**: Se instancia indicando un tamaño inicial explícito. El acceso y para modificar elementos se utiliza el operador `[]`.
+   * **Longitud**: Es un atributo directamente accesible a través de `.length`
+   * **Asignación**: Cuando haces `b = a`, el objeto `b` asume el control del bloque de memoria de `a`. Asi la longitud y el contenido de `b` pasan `a` ser los que tenía `a`, descartando el arreglo que `b` tenía en un inicio.
+
 2. En `demo_arraystack_explicado.cpp`, ¿qué operación muestra mejor el costo por desplazamientos?
+
+   * Las operaciones `add(1, 15)` y `remove(i)` tienen un costo `O(n-i)` directamente proporcional a la cantidad de elementos que se deben mover.
 
 3. En `demo_fastarraystack.cpp`, ¿qué cambia en la implementación aunque no cambie la complejidad asintótica?
 
+   * Se abandonan los bucles `for` iterativos que desplazan los elementos uno por uno.
+
 4. En `demo_rootisharraystack_explicado.cpp`, ¿qué ejemplo explica mejor el mapeo de índice lógico a bloque y offset?
+
+   * El mejor ejemplo son las llamadas a la función `print_location` en el main (para los índices 0, 2 y 5).
+   Muestra cómo un índice lógico se traduce en coordenadas de memoria reales (el número de bloque y su posición exacta offset dentro de ese bloque).
 
 5. En `demo_deng_vector.cpp`, ¿qué observable permite defender el crecimiento de `capacity`?
 
+   * La impresión simultánea de `size` y `capacity` dentro del primer bucle `for`. Permite ver cómo el tamaño crece linealmente de 1 en 1 con cada inserción, mientras que la capacidad se mantiene estática hasta que se llena y luego da saltos duplicándose.
+
 6. En `demo_stl_vector_contraste.cpp`, ¿qué similitud conceptual observan con `DengVector`?
 
+   * Ejecutan un bucle de inserciones donde se imprimen simultáneamente `size` y `capacity` paso a paso.
+
 7. ¿Qué demo sirve mejor para defender amortización y cuál sirve mejor para defender uso de espacio?
+
+   * Para defender amortización `demo_deng_vector.cpp` es la mejor porque expone el truco detrás del tiempo amortizado `O(1)` para las inserciones al final de un arreglo dinámico.
+   * Para defender uso de espacio `demo_rootisharraystack_explicado.cpp` es la mejor para explicar cómo minimizar el desperdicio de memoria.
 
 #### Bloque 3 - Pruebas públicas, stress y correctitud
 1. ¿Qué operaciones mínimas valida la prueba pública para `ArrayStack`?
