@@ -108,52 +108,115 @@
    * Para defender uso de espacio `demo_rootisharraystack_explicado.cpp` es la mejor para explicar cómo minimizar el desperdicio de memoria.
 
 #### Bloque 3 - Pruebas públicas, stress y correctitud
+
 1. ¿Qué operaciones mínimas valida la prueba pública para `ArrayStack`?
+
+   * `add(x)`: Valida que se puedan añadir elementos al final de la estructura.
+   * `add(i, x)`: Valida que la estructura pueda insertar un elemento en el medio y realizar los desplazamientos internos sin perder datos.
+   * `size()`: Valida que el contador interno refleje correctamente la cantidad de elementos tras las inserciones y las eliminaciones.
+   * `get(i)`: Valida que los elementos se encuentren exactamente en las posiciones esperadas.
+   * `remove(i)`: Valida que se elimine el elemento en la posición dada cerrando el espacio dejado, y que la función retorne correctamente el valor del elemento recién eliminado
 
 2. ¿Qué operaciones mínimas valida la prueba pública para `FastArrayStack`?
 
+   * `add(i, x)`: Valida que puede crecer dinámicamente sin desplazar elementos existentes.
+   * `size()`: Valida que el contador interno se actualice correctamente tras las inserciones y también se utiliza dinámicamente para calcular la posición final en las primeras inserciones.
+   * `get(i)`: Valida que el elemento insertado en el medio esté en la posición correcta.
+   * `remove(i)`: Valida el peor caso posible de desplazamiento al eliminar el primer elemento.
+
 3. ¿Qué operaciones mínimas valida la prueba pública para `RootishArrayStack`?
+
+   * `add(i, x)`: valida mediante un bucle `for` que inserta 6 elementos secuencialmente.
+   * `size()`: Valida que el tamaño lógico total refleje correctamente el número de elementos tras la construcción inicial y tras eliminar elementos.
+   * `get(i)`: Valida que la ecuación interna funcione, logrando localizar y leer un dato específico.
+   * `set(i, x)`: Valida que se pueda sobreescribir correctamente el valor en una posición específica y que la función retorne exitosamente el valor antiguo que estaba en esa posición.
+   * `remove(i)`: Valida que al quitar un elemento intermedio, la estructura devuelva el valor correcto y realice los desplazamientos hacia la izquierda.
 
 4. ¿Qué sí demuestra una prueba pública sobre una estructura?
 
+   * Una prueba pública demuestra fundamentalmente la corrección funcional de una estructura de datos.
+
 5. ¿Qué no demuestra una prueba pública?
+
+   * Una prueba pública no demuestra la complejidad asintotica de tiempo, complejidad de espacio, uso de memoria, etc. En otras palabras no demuestra la eficiencia de la estrucutura de datos. 
 
 6. En `resize_stress_week2.cpp`, ¿qué comportamiento intenta estresar sobre crecimiento, reducción o estabilidad?
 
+   * En `ArrayStack` se estresa el crecimiento y reducción de la cola al inserta 200 elementos y luego eliminando exactamente la mitad desde el final .
+   * En `FastArrayStack` se estresa la reducción haciendodolo crecer hasta 200, y luego eliminando 50 elementos desde la cabeza usando `remove(0)`.
+   * En `RootishArrayStack` se estresa el crecimiento y reducción de los arreglos independientes insertando 120 elementos obligando a la estructura a instanciar aproximadamente 15 bloques de memoria distintos y eliminar la mitad hasta el índice 60.
+   * En `DengVector` se estresa el crecimiento, reducción y estabilidad al insertar 1000 elementos, usando remove(0) 700 veces y forzando a los 300 restantes a moverse hasta el principio del arreglo.
+
 7. ¿Por qué pasar pruebas no reemplaza una explicación de invariantes y complejidad?
 
+   * Pasar las pruebas públicas demuestra que el código funciona en el momento de la prueba. Explicar los invariantes y la complejidad asintótica demuestra por qué funciona, que seguira funcionando pese al tiempo, y saber exactamente lo hace el código.
+
 #### Bloque 4 - Vector como puente entre teoría y código
+
 1. ¿Qué papel cumplen `_size`, `_capacity` y `_elem`?
+
+   * `_size`: Define la límite de los datos útiles. El arreglo termina en el índice `_size - 1`.
+   * `_capacity`: Actúa como el límite físico antes de que la estructura se vea obligada a pedir más memoria.
+   * `_elem`: Representa el arreglo subyacente en la memoria RAM.
 
 2. ¿Cuándo debe ejecutarse `expand()`?
 
+   * Debe ejecutarse en el momento que el arreglo se queda sin espacio físico libre.
+
 3. ¿Por qué `insert(r, e)` necesita desplazar elementos?
+
+   * Al ejecutar `insert(r, e)`, le estás diciendo a la estructura que coloque el nuevo elemento `e` exactamente en el índice `r`. Y al nopoder sobreescribir y deber preservar la continuidad desplaza los elementos.
 
 4. ¿Qué diferencia conceptual hay entre `remove(r)` y `remove(lo, hi)`?
 
+   * `remove(r)` elimina un único elemento que se encuentra exactamente en el índice `r` mientras que `remove(lo, hi)` elimina un bloque continuo de múltiples elementos a la vez.
+
 5. ¿Qué evidencia de copia profunda aparece en la demo?
+
+   * En `demo_deng_vector.cpp` se le suma 1 a todos los elementos del objeto copia, y luego multiplica por 2 todos los elementos del objeto asignado. Al imprimir los resultados en consola después de estas operaciones, los valores son completamente distintos. El poder mutar independientemente sin afectarse mutuamente demuestra que se realizó una copia profunda.
 
 6. ¿Por qué `traverse()` es una buena interfaz didáctica?
 
+   * Porque `traverse()` separa el cómo recorrer el arreglo del qué hacer con los datos.
+
 7. ¿Qué ventaja tiene implementar un vector propio antes de depender de `std::vector`?
 
+   * Implementar un vector fuerza a gestionar explícitamente la propiedad y liberación de los recursos mediante copias profundas y destructores, en lugar de dar la memoria por sentada.
+
 #### Bloque 5 - RootishArrayStack: espacio y mapeo
+
 1. ¿Cómo se distribuyen los elementos entre bloques?
+
+   * los elementos se distribuyen en una serie de arreglos independientes cuyos tamaños crecen en progresión aritmética.
 
 2. ¿Por qué con `r` bloques la capacidad total es `r(r+1)/2`?
 
+   * Dado que los bloques crecen en progresión (1, 2, 3, 4, ...), la cantidad total de elementos que puede almacenar la estructura cuando tiene `r` bloques equivale a la suma de los primeros `r` números enteros es decir la Suma de Gauss.
+
 3. ¿Qué problema resuelve `i2b(i)`?
+
+   * `i2b(i)` utiliza la fórmula cuadrática para determinar en qué bloque cae el índice `i` sin usar bucles en un tiempo `O(1)`.
 
 4. ¿Qué información produce `locate(i)` en la versión explicada?
 
+   * `locate(i)` encapsula la matemática de enrutamiento del `RootishArrayStack`. Traduce la abstracción lineal del usuario a la realidad fragmentada de la memoria. Esta encapsulación es la que permite que `get(i)` y `set(i, x)` operen con tan solo un par de variables desempaquetadas.
+
 5. ¿Qué se gana en espacio frente a `ArrayStack`?
+
+   * Se gana una altísima eficiencia de espacio sin renunciar al tiempo amortizado `O(1)` de inserción,
 
 6. ¿Qué se conserva igual respecto a la interfaz?
 
+   * Las operaciones que se conservan son:
+      * `size()`: Sigue devolviendo la cantidad total de elementos lógicos que el usuario ha insertado.
+      * `get(i)` y `set(i, x)`: El usuario sigue pidiendo o modificando datos utilizando un simple índice lineal (de 0 a n-1).
+      * `add(i, x)` y `remove(i)`: El usuario sigue asumiendo que al insertar en el medio se "deja un espacio" y al eliminar se "llena el esapcio", desplazando los elementos a la derecha o a la izquierda de forma continua.
+
 7. ¿Qué parte les parece más difícil de defender oralmente: el mapeo, el análisis espacial o el costo amortizado de `grow/shrink`?
 
-#### Bloque 6 - Refuerzo de lectura
-Revisa: Lectura4-Deng
+   * `grow/shrink` lo considero lo más dificil de defender oralmente, el cómo cada inserción paga su propio costo `O(1)`.
+
+#### Bloque 6 - Refuerzo de lectura (Lectura4-Deng)
 
 1. ¿Qué aporta operator[] a la idea de vector?
 
