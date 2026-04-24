@@ -16,9 +16,11 @@
 
 3. Expliquen por qué una lista enlazada mejora inserciones y eliminaciones locales, pero empeora el acceso por índice.
 
-    * Esto es debido a que presenta la ventaja de no ser necesario organizar ni desplazar elementos, solo cambiar enlaces. Pero si se busca acceder por indice el costo total es `O(n)`.
+    * Esto es debido a que presenta la ventaja de no ser necesario organizar ni desplazar elementos, solo cambiar enlaces. Pero si se busca acceder por índice el costo total es `O(n)`.
 
 4. Expliquen por qué `SLList` implementa bien operaciones de `Stack` y `Queue`.
+
+
 
 5. Expliquen por qué `SLList` no implementa naturalmente todas las operaciones de un `Deque` con el mismo costo.
 
@@ -34,11 +36,40 @@
 
 #### Bloque 2
 
+|Archivo | Salida/observable importante | Idea estructural | Argumento de costo, espacio o diseño |
+|---|---|---|---|
+
+
 1. En `demo_sllist.cpp`, ¿qué secuencia deja más clara la coexistencia de comportamiento tipo pila y tipo cola dentro de `SLList`?
+    * La secuencia que deja más clara la coexistencia de comportamiento es:
+    ```
+    q.add(10);
+    q.add(20);
+    q.push(5);
+
+    std::cout << "peek = " << q.peek() << "\n";
+    std::cout << "pop = " << q.pop() << "\n";
+    std::cout << "remove = " << q.remove() << "\n";
+    ```
+    Donde observamos que add(10) y add(20) agregan al final como cola (FIFO) y push(5) inserta en la cabeza (LIFO). 
 
 2. En `demo_dllist.cpp`, ¿qué operación muestra mejor la inserción en una posición intermedia?
 
+    * La operación más clara es:
+    ```
+    d.add(1, 20);
+    ```
+    Muestra que `DLList::add(i, x)` puede insertar en cualquier índice válido, no solo al inicio o al final.
+
 3. En `demo_selist.cpp`, ¿qué observable permite defender que la lista mantiene orden lógico aunque internamente trabaje por bloques?
+
+    * El observable clave es:
+    ```
+    for (int i = 0; i < s.size(); ++i) {
+    std::cout << s.get(i) << ' ';
+    }
+    ```
+    Muestra que aunque internamente `SEList` divide los elementos en bloques, se sigue observando una lista ordenada por posición lógica 0, 10, 20, ..., esto defiende que mantiene el orden lógico.
 
 4. En `demo_deng_list.cpp`, ¿qué evidencia muestra que la lista reforzada por Deng ofrece operaciones más cercanas a un ADT de lista completo?
 
