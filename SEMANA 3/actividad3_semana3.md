@@ -82,7 +82,33 @@
 8. En `demo_contiguous_vs_linked.cpp`, ¿qué contraste se observa entre acceso por índice, inserción local y localidad de memoria?
 
 #### Bloque 3
-(respuestas)
+
+1. ¿Qué operaciones mínimas valida la prueba pública para `SLList`?
+
+    * La prueba pública para `SLList` valida las siguientes operaciones mínimas:
+        * `add(value)`: Inserta un elemento al final de la lista.
+        * `push(value)`: Inserta un elemento al frente de la lista.
+        * `size()`: Devuelve el número de elementos en la lista.
+        * `peek()`: Devuelve el valor del elemento en el frente sin removerlo.
+        * `pop()`: Remueve y devuelve el elemento del frente.
+        * `remove()`: Remueve y devuelve el elemento del final.
+
+2. ¿Qué operaciones mínimas valida la prueba pública para `DLList`?
+
+    * La prueba pública para `DLList` valida las siguientes operaciones mínimas:
+        * `add(i, value)`: Inserta un elemento en la posición i.
+        * `size()`: Devuelve el número de elementos en la lista.
+        * `get(i)`: Devuelve el valor del elemento en la posición i.
+        * `remove(i)`: Remueve y devuelve el elemento en la posición i.
+
+3. ¿Qué operaciones mínimas valida la prueba pública para `SEList`?
+
+    * La prueba pública para `SEList` valida las siguientes operaciones mínimas:
+        * `add(i, value)`: Inserta un elemento en la posición i.
+        * `size()`: Devuelve el número de elementos en la lista.
+        * `get(i)`: Devuelve el valor del elemento en la posición i.
+        * `set(i, value)`: Establece un nuevo valor en la posición i y devuelve el valor anterior.
+        * `remove(i)`: Remueve y devuelve el elemento en la posición i.
 
 #### Bloque 4
 (respuestas)
