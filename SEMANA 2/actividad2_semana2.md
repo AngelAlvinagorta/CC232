@@ -214,31 +214,45 @@
 
 7. ¿Qué parte les parece más difícil de defender oralmente: el mapeo, el análisis espacial o el costo amortizado de `grow/shrink`?
 
-   * `grow/shrink` lo considero lo más dificil de defender oralmente, el cómo cada inserción paga su propio costo `O(1)`.
+   * `grow/shrink` lo considero lo más dificil de defender oralmente, por explicar cómo cada inserción paga su propio costo `O(1)`.
 
 #### Bloque 6 - Refuerzo de lectura (Lectura4-Deng)
 
-1. ¿Qué aporta operator[] a la idea de vector?
+1. ¿Qué aporta operator `[ ]` a la idea de vector?
 
-2. ¿Qué supone find(e) sobre igualdad entre elementos?
+   * La sobrecarga del operador `[ ]` permite recuperar el estilo de acceso del arreglo sin renunciar a la encapsulación del vector. Ademas de acceder a los datos de forma intuitiva mientras la clase mantiene el control total sobre la seguridad y la integridad de la memoria interna.
 
-3. ¿Qué muestra traverse() sobre procesamiento uniforme de toda la estructura?
+2. ¿Qué supone `find(e)` sobre igualdad entre elementos?
 
-4. ¿Por qué esta lectura sirve como refuerzo natural de DengVector aunque no sea el centro exclusivo de la semana?
+   * Supone que los elementos almacenados tienen una regla para compararse entre sí, ya que el vector puede almacenar objetos más complejos que deben evaluarse. Ademas que pueden existir varios elementos con el mismo valor exacto dentro de la estructura asi escogiendo la coincidencia de mayor rango.
+
+3. ¿Qué muestra `traverse()` sobre procesamiento uniforme de toda la estructura?
+
+   * `traverse()` muestra que el vector no es un simple contenedor pasivo, sino una estructura diseñada para el procesamiento uniforme.
+
+4. ¿Por qué esta lectura sirve como refuerzo natural de `DengVector` aunque no sea el centro exclusivo de la semana?
+
+   * La lectura sirve de refuerzo porque nos brinda la justificación teórica y la explicación formal de la estrucutura, rendimiento y el costo físico.   
 
 #### Bloque 7 - Cierre comparativo
-¿Qué cambia cuando pasamos de "usar un arreglo" a "diseñar una estructura dinámica basada en arreglo"?
 
-La respuesta debe incluir obligatoriamente:
+1. ¿Qué cambia cuando pasamos de "usar un arreglo" a "diseñar una estructura dinámica basada en arreglo"?
 
-una afirmación sobre representación
-una afirmación sobre correctitud
-una afirmación sobre costo amortizado
-una afirmación sobre uso de espacio
-una comparación entre ArrayStack, FastArrayStack y RootishArrayStack.
+   * Respecto a la representación, el cambio principal es pasar de un simple puntero a una tripleta de control compuesta por `_elem`, `_size` y `_capacity`.
+   * Respecto a la correctitud, mientras que en un arreglo un error de índice es un fallo externo, en una estructura dinámica es responsabilidad interna asegurar que, tras cada `add` o `remove`, se mantenga la condición 0<=`_size`<=`_capacity`.
+   * Respecto al costo amortizado, a diferencia de un arreglo estático donde el costo de inserción es siempre `O(1)` pero limitado, una estructura dinámica introduce la estrategia de duplicación lo que permite que el costo se distribuya entre todas las inserciones previas, garantizando un costo amortizado de `O(1)`.
+   * Respecto al uso de espacio, el diseño dinámico permite gestionar el factor de carga mediante `shrink()`. Pero al pasar a una estructura diseñada nos centramos en no quedarnos sin memoria y no desperdiciarla. Por es ello se busca un equilibrio donde la memoria utilizada sea proporcional al número de elementos.
+   * Tabla comparativa entre ArrayStack, FastArrayStack y RootishArrayStack.
+      | Caracteristica | `ArrayStack` | `FastArrayStack` | `RootishArrayStack` |
+      |---|---|---|---|
+      | Gestión de memoria | Un solo bloque contiguo que se duplica | Un solo bloque contiguo que se duplica. | Múltiples bloques de tamaño creciente (1, 2, 3...). |
+      | Ventaja principal | Simplicidad y acceso directo `O(1)`. | Máxima velocidad en desplazamientos gracias a `std::copy`. | Solo desperdicia `O(√n)` de memoria. |
+      | Espacio desperdiciado | Puede ser hasta `O(n)` | Puede ser hasta `O(n)` | Mínimo `O(√n)` solo en el último bloque. |
+      | Complejidad de acceso | `O(1)` (Directo). | `O(1)` (Directo). | `O(1)` (Requiere cálculo de `i2b` y raíz cuadrada). |
+
 
 #### Autoevaluación breve
-- Qué podemos defender con seguridad:
-- Qué todavía confundimos:
-- Qué evidencia usaríamos en una sustentación:
 
+- Qué podemos defender con seguridad: La lógica mediante el control de (`_elem`, `_size` y `_capacity`).
+- Qué todavía confundimos: Explicar el costo amortizado de `grow()` y `shrink()`.
+- Qué evidencia usaríamos en una sustentación: Las pruebas extremas en `resize_stress_week2.cpp`, y los resultados de forma independiente en `demo_deng_vector.cpp`.
