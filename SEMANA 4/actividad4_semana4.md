@@ -47,6 +47,24 @@
 
 
 #### Bloque 2 (tabla y respuestas)
+
+1. En `demo_stack_queue.cpp`, ¿qué parte de la salida deja más clara la diferencia entre tope y frente?
+
+    * La parte de la salida que deja más clara la diferencia son estas dos líneas:
+    ```
+    Tope de la pila = 9      //acceso directo al último elemento ingresado
+    Frente de la cola = 10   //acceso directo al primer elemento que ingresado
+    ```
+
+2. En `demo_base_conversion.cpp`, ¿qué observable permite afirmar que las versiones recursiva e iterativa producen la misma representación?
+
+    * El observable que nos `permite afirmarlo es la salida obtenida en el terminal
+    ```
+    12345 en base 8 (recursivo) = 30071
+    12345 en base 8 (iterativo) = 30071
+    ```
+    si las versiones recursiva e iterativa son equivalentes, ambas sentencias mostrarán lo mismo.
+
 #### Bloque 3 (respuestas)
 #### Bloque 4 (respuestas y experimentos 1-2)
 #### Bloque 5 (respuestas y experimento 3)
