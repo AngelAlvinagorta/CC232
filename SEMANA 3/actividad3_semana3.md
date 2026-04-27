@@ -109,7 +109,7 @@
     | Caractersiticas | Contiguo (`ArrayDeque`) | Enlazado (`DLList`) |
     |---|---|---|
     | Acceso por índice | Requiere una simple operación matematica | Requiere saltar nodo por nodo |
-    | Inserción/Borrado local | Requiere desplazar otros datos | Solo cambia punteros |
+    | Inserción local | Requiere desplazar otros datos | Solo cambia punteros |
     | Localidad de memoria | Aprovecha la caché de la CPU | Nodos fragmentados en el Heap |
 
 #### Bloque 3
@@ -143,94 +143,194 @@
 
 4. ¿Qué operaciones nuevas quedan cubiertas por `test_public_extras.cpp`?
 
+    * En `SLList`:
+        * `secondLast()`: Recupera el valor del penúltimo nodo.
+        * `reverse()`: Invierte el sentido de los punteros `next` de todos los nodos de la lista asi el último pasa a ser el primero.
+        * `checkSize()`: Recorre la lista contando los nodos uno por uno para asegurar que el contador de tamaño no se desincronice después de las modificaciones.
+
+    * En `DLList`:
+        * `rotate(int r)`: Desplaza circularmente los elementos de la lista.
+        * `isPalindrome()`: Verifica si el contenido de la lista es simétrico.
+        * `checkSize()`: Verifica que la cantidad de elementos sea correcta y que los enlaces entre nodos `next` y `prev` estén conectados correctamente.
+
+    * En `MinStack`, `MinQueue`, `MinDeque`:
+        * `min()`: Prueba que las estructuras son capaces de rastrear y devolver correctamente el valor mínimo actual en todo momento.
+    
 5. ¿Qué valida específicamente `test_public_linked_adapters.cpp` sobre `LinkedStack`, `LinkedQueue` y `LinkedDeque`?
+
+    * Valida que `LinkedStack`, `LinkedQueue` y `LinkedDeque` respeten estrictamente sus invariantes y que gestionen de manera correcta su tamaño y límites.
 
 6. ¿Qué demuestra `test_public_deng_bridge.cpp` sobre integración y reutilización?
 
+    * **Integración**: Las estructuras base mantienen su función de gestionar la memoria y los enlaces físicos por lo que no se altera el diseño de las clases originales.
+    * **Reutilización**: El algoritmo de ordenamiento se escribió una vez en la capa `cc232`. Debido a esto el algoritmo puede operar sobre cualquier estructura que cumpla con tener `get`, `set` y `size`.
+
 7. En `stress_selist_week3.cpp`, ¿qué comportamiento intenta estresar sobre crecimiento, borrado y mantenimiento del tamaño lógico?
+
+    * **Crecimiento**:
+        * Usar `add(10)` y `push(5)`, se estresa la lógica de los punteros `head` y `tail` para asegurar que ambos extremos se actualicen correctamente.
+        * Al hacer `add(1, 20)` entre el 10 y el 30, obliga a la lista a reconectar cuatro punteros simultáneamente sin perder la cadena.
+    * **Borrado**:
+        * Usar `pop()` y `remove()` prueba la extracción desde la cabeza de la lista, lo que requiere mover el puntero principal y liberar el nodo viejo.
+        * Extraer el elemento del medio `remove(1)` obliga a los nodos vecinos (0 y 2) a saltarse el nodo eliminado y apuntarse mutuamente.
+    * **Mantenimiento del tamaño lógico**:
+        * Intenta estresar que el contador interno `n` sume exactamente 1 en cada `add`/`push` y reste exactamente 1 en cada `remove`/`pop`.
 
 8. ¿Qué sí demuestra una prueba pública sobre una estructura enlazada?
 
+    * Demuestra que la estructura se comporta según las reglas matemáticas del ADT que representa.
+
 9. ¿Qué no demuestra una prueba pública por sí sola?
 
+    * Una prueba pública estándar no demuestra la eficiencia del ADT.
+
 10. ¿Por qué pasar pruebas no reemplaza una explicación de invariantes, punteros y complejidad?
+
+    * Pasar las pruebas públicas demuestra que el código funciona en el momento de la prueba, explicar las invariantes, punteros y complejidad significa que el ADT está bien diseñado y seguira funcionando pese al tiempo.
 
 #### Bloque 4
 
 1. En `SLList`, ¿qué papel cumplen `head`, `tail` y `n`?
 
+    * 
+
 2. En `SLList::push`, `pop`, `add` y `remove`, ¿qué punteros cambian exactamente?
+
+    * 
 
 3. Explica cómo funciona `secondLast()` y por qué no puede resolverse directamente con solo mirar `tail`.
 
+    * 
+
 4. Explica paso a paso cómo funciona `reverse()` y por qué no necesita estructura auxiliar.
+
+    * 
 
 5. Explica qué verifica `checkSize()` y por qué esta función ayuda a defender correctitud.
 
+    * 
+
 6. En `DLList`, explica por qué `getNode(i)` puede empezar desde el inicio o desde el final.
+
+    * 
 
 7. En `DLList::addBefore`, ¿qué enlaces se actualizan y por qué el nodo centinela elimina casos borde?
 
+    * 
+
 8. Explica cómo funciona `rotate(r)` sin mover los datos elemento por elemento.
+
+    * 
 
 9. Explica cómo `isPalindrome()` aprovecha la naturaleza doblemente enlazada de la estructura.
 
+    * 
+
 10. En `SEList`, explica qué representa `Location`.
+
+    * 
 
 11. Explica qué hacen `spread()` y `gather()` y en qué situaciones aparecen.
 
+    * 
+
 12. Explica cómo el tamaño de bloque `b` afecta el trade-off entre acceso, actualización y uso de espacio.
 
+    * 
 
 #### Bloque 5
 
 1. ¿Cómo reutiliza `LinkedStack` a `SLList`?
 
+    * 
+
 2. ¿Cómo reutiliza `LinkedQueue` a `SLList`?
+
+    * 
 
 3. ¿Por qué `LinkedDeque` se construye naturalmente sobre `DLList` y no sobre `SLList`?
 
+    * 
+
 4. En `MinStack`, ¿por qué cada entrada guarda el valor y el mínimo acumulado?
+
+    * 
 
 5. En `MinQueue`, ¿por qué usar dos pilas permite mantener semántica FIFO y consulta de mínimo?
 
+    * 
+
 6. En `MinDeque`, ¿qué problema resuelve el rebalanceo entre `front_` y `back_`?
+
+    * 
 
 7. Compara "implementar una estructura" y "adaptar una estructura existente" usando ejemplos de este bloque.
 
+    * 
+
 8. ¿Qué operaciones puedes defender como constantes y cuáles debes defender como amortizadas?
+
+    * 
 
 #### Bloque 6
 
 1. ¿Qué operaciones del ADT de lista aparecen reforzadas en `DengList`?
 
+    * 
+
 2. ¿Qué ventaja tiene encapsular una lista más rica sin cambiar el resto de estructuras de Semana 3?
+
+    * 
 
 3. Explica qué hacen `to_deng` y `assign_from_deng`.
 
+    * 
+
 4. Explica por qué `stable_sort_with_deng` no obliga a reimplementar ordenamiento dentro de `DLList` o `SEList`.
+
+    * 
 
 5. Explica qué hace `dedup_with_deng` y qué relación guarda con `deduplicate()` o `uniquify()` de la teoría.
 
+    * 
+
 6. Explica por qué `reverse_with_deng` es un ejemplo de reutilización de algoritmos sobre una interfaz común.
 
+    * 
+
 7. ¿Qué costo adicional introduce la conversión entre estructuras y cuándo vale la pena aceptarlo?
+
+    * 
 
 #### Bloque 7
 
 1. Compara `ArrayDeque` y `LinkedDeque`: ¿qué cambia en representación y qué cambia en costo observable?
 
+    * 
+
 2. ¿Qué significa que una representación contigua tenga mejor localidad de memoria?
+
+    * 
 
 3. ¿Qué tipo de operaciones favorecen más a la representación enlazada?
 
+    * 
+
 4. En el benchmark, ¿qué comparación sirve mejor para discutir acceso aleatorio y cuál sirve mejor para discutir operaciones en extremos?
+
+    * 
 
 5. ¿Por qué el benchmark no debe leerse como prueba absoluta de superioridad de una estructura sobre otra?
 
+    * 
+
 6. ¿Qué idea intenta mostrar `XorList` respecto al ahorro de punteros?
 
+    * 
+
 7. ¿Qué desventaja práctica introduce una estructura como `XorList` aunque sea interesante desde el punto de vista del espacio?
+
+    * 
 
 #### Bloque 8
 
