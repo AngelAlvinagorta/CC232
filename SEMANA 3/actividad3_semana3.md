@@ -192,39 +192,63 @@
 
 1. En `SLList`, ¿qué papel cumplen `head`, `tail` y `n`?
 
-    * 
+    * `head`: Es la única forma de entrar a la lista.
+    * `tail`: Es una optimización para evitar el viaje para añadir un elemento al final y tener que empezar en head y saltar nodo por nodo hasta encontrar el último.
+    * `n`: Actúa como una caché del tamaño.
 
 2. En `SLList::push`, `pop`, `add` y `remove`, ¿qué punteros cambian exactamente?
 
-    * 
+    * En `push(x)`:
+        * `u->next`: Se actualiza para apuntar al antiguo `head`.
+        * `head`: Cambia para apuntar al nuevo nodo `u`.
+        * `tail`: Si n es 0 antes de insertar, `tail` también se actualiza para apuntar a `u`.
+    * En `pop` y `remove`:
+        * `head`: Cambia para apuntar al segundo nodo de la lista.
+        * `tail`: Cambia a `nullptr` si al eliminar el nodo el tamaño `n` llega a 0.
+    * En `add`:
+        * `tail`: Se actualiza para apuntar al nuevo nodo `u`.
 
 3. Explica cómo funciona `secondLast()` y por qué no puede resolverse directamente con solo mirar `tail`.
 
-    * 
+    * El puntero `tail` te da acceso inmediato al último nodo de la lista, pero en una `SLList` los nodos solo tienen un puntero `next` por lo que no es posible dar un paso hacia atras. 
+    * Ante la imposibilidad de ir de atrás hacia adelante, la única solución es `secondLast()` que recorre la lista desde el principio hasta encontrar el nodo deseado.
 
 4. Explica paso a paso cómo funciona `reverse()` y por qué no necesita estructura auxiliar.
 
-    * 
+    * Los pasos son:
+        ```
+        while (curr != nullptr) {
+        // Paso 1: Guardamos el resto de la lista antes de romper el enlace
+        Node* next = curr->next;
+        // Paso 2: El nodo actual deja de apuntar hacia adelante y pasa a apuntar hacia atrás
+        curr->next = prev;
+        // Paso 3: Movemos 'prev' al nodo actual para que el siguiente nodo lo use
+        prev = curr;
+        // Paso 4: Movemos 'curr' al nodo que habíamos guardado en el paso 1 para continuar
+        curr = next;
+        }
+        ```
+    * No necesita de una estructura auxiliar porque opera **in-place** (transforma la entrada de datos modificándola directamente en su ubicación original en memoria, sin requerir espacio auxiliar significativo para funcionar)
 
 5. Explica qué verifica `checkSize()` y por qué esta función ayuda a defender correctitud.
 
-    * 
+    * `checkSize()` recorre físicamente la lista saltando de `next` en `next` y cuenta cuántos nodos existen en la memoria y verifica que este conteo coincida con la caché `n`.y ayuda a defender correctitud porque garantiza que ninguna operación compleja haya roto los enlaces internos, pudiendo detectar cualquier desincronización de punteros al instante. 
 
 6. En `DLList`, explica por qué `getNode(i)` puede empezar desde el inicio o desde el final.
 
-    * 
+    * En `DLList` cada nodo tiene un puntero `prev` y la lista está conectada de forma circular mediante el nodo `dummy`, lo que permite viajar hacia atrás empezando desde la cola, ademas que elige la ruta más corta y en el peor de los casos solo recorrerá la mitad de la lista.
 
 7. En `DLList::addBefore`, ¿qué enlaces se actualizan y por qué el nodo centinela elimina casos borde?
 
-    * 
+    * Se configuran los punteros `prev` y `next` del nuevo nodo. Luego, se actualiza el `next` del nodo anterior y el `prev` del nodo siguiente para que ambos apunten hacia el recién llegado. Y elimina los casos borde porque garantiza que no existan punteros nulos.
 
 8. Explica cómo funciona `rotate(r)` sin mover los datos elemento por elemento.
 
-    * 
+    * `rotate(r)` en lugar de mover los datos uno por uno, modifica la estructura de la cadena reconectando únicamente 6 punteros.
 
 9. Explica cómo `isPalindrome()` aprovecha la naturaleza doblemente enlazada de la estructura.
 
-    * 
+    * `isPalindrome()` aprovecha los punteros `prev` y `next` para usar dos rastreadores, uno que va hacia adelante y otro al que retrocede. Ambos convergen hacia el centro comparando los valores, lo que verifica la simetría de la lista en una sola pasada sin usar memoria extra.
 
 10. En `SEList`, explica qué representa `Location`.
 
