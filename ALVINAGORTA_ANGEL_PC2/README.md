@@ -1,16 +1,19 @@
 ## PC2 - CC232
 
 ### Estudiante
+
 - Nombre: Alvinagorta Huapaya Angel Andres
 - Código: 20210047H
 - Problema asignado: LRU Cache
 - Enlace: https://leetcode.com/problems/lru-cache/description/
 
 ### Referencia oficial
+
 - Archivo de asignación:
   https://github.com/kapumota/CC-232/blob/main/Practicas/Practica2_CC232/Problemas-Evaluacion2.csv
 
 ### Tema principal
+
 - Semana: 1 y 3
 - Estructura o técnica principal: `HashMap` + `doubly linked list`
 
@@ -39,7 +42,6 @@ Explica brevemente la idea principal de la solución.
 ### Pseudocódigo
 
 
-
 ### Puntos a explicar
 
 - HashMap + doubly linked list
@@ -56,6 +58,7 @@ Explica brevemente la idea principal de la solución.
 - Espacio:
 
 ### Invariante o idea clave
+
 Describe el invariante o propiedad que se mantiene.
 
 ### Preguntas a responder del problema
@@ -87,7 +90,8 @@ cmake --build build
 ```
 
 ### Casos de prueba
-Describe al menos 3 casos:
+
+- Describe al menos 3 casos:
 1. Caso pedido en el problema
 2. 
 3. 
