@@ -43,10 +43,10 @@ public:
     }
 
     // LRUCache no necesita copiar el cache
-    DLList(const DLList&)            = delete;
+    DLList(const DLList&) = delete;
     DLList& operator=(const DLList&) = delete;
-    DLList(DLList&&)                 = delete;
-    DLList& operator=(DLList&&)      = delete;
+    DLList(DLList&&) = delete;
+    DLList& operator=(DLList&&) = delete;
 
     int size() const {
         return n;

@@ -20,3 +20,6 @@ add_pc2_target(pc2_demo_lru "demos/demo_lru.cpp")
 add_pc2_target(pc2_demo_lru2 "demos/demo_lru2.cpp")
 add_pc2_target(pc2_demo_lru3 "demos/demo_lru3.cpp")
 add_pc2_target(pc2_benchmark "benchmark/benchmark.cpp")
+add_pc2_target(pc2_test       "src/test/test_lru.cpp")
+
+add_test(NAME pc2_test COMMAND pc2_test)

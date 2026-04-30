@@ -59,7 +59,7 @@ Explica brevemente la idea principal de la solución.
 
 ### Invariante o idea clave
 
-Describe el invariante o propiedad que se mantiene.
+El elemento en `dummy.prev` debe ser el al que se accedio menos recientemente, y el elemento en `dummy.next` debe ser el al que se accedio más recientemente.
 
 ### Preguntas a responder del problema
 
@@ -72,8 +72,8 @@ Describe el invariante o propiedad que se mantiene.
 
 - include/LRUCache.h, DLList.h
 - src/LRUCache.cpp
-- tests/
-- demos/demo_lru.cpp
+- tests/test_lru.cpp
+- demos/demo_lru.cpp, demo_lru2.cpp, demo_lru3.cpp
 - benchmark/benchmark.cpp
 
 ### Compilación
@@ -85,8 +85,29 @@ cmake --build build
 
 ### Ejecución
 
+- Caso 1:
 ```bash
-./build/tu_programa
+./build/demo_lru.exe
+```
+
+- Caso 2:
+```bash
+./build/demo_lru.exe
+```
+
+- Caso 3:
+```bash
+./build/demo_lru.exe
+```
+
+- Benchmark:
+```bash
+./build/benchmark.exe
+```
+
+- Test:
+```bash
+./build/pc2_test.exe
 ```
 
 ### Casos de prueba
@@ -98,7 +119,10 @@ cmake --build build
 
 ### Historial de commits
 
-Indica que el historial debe verse en el video.
+1. Añadiendo Includes y Ordenando README
+2. Añadiendo LRUCache.cpp, demo_lru.cpp y CMakeLists.txt
+3. Añadiendo Benchmark y 2 casos más de prueba
+4. Añadiendo test_lru.cpp y ajustando CMakeLists para su funcionamiento
 
 ### Declaración de autoría
 
