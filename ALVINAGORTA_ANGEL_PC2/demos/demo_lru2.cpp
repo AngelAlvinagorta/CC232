@@ -3,7 +3,7 @@
 
 using namespace std;
 
-//Caso de prueba 1 - Caso Principal
+//Caso de prueba 2
 void printGet(LRUCache& cache, int key) {
     cout << cache.get(key);
 }
@@ -15,25 +15,17 @@ void printPut(LRUCache& cache, int key, int value) {
 
 int main() {
 
-    LRUCache lruCache(2);
+    LRUCache lruCache(1);
     cout << "[null, ";
-    printPut(lruCache, 1, 1);
-    cout << ", ";
-    printPut(lruCache, 2, 2); 
-    cout << ", ";
-    printGet(lruCache, 1);
-    cout << ", ";
-    printPut(lruCache, 3, 3);
+    printPut(lruCache, 2, 1);
     cout << ", ";
     printGet(lruCache, 2);
     cout << ", ";
-    printPut(lruCache, 4, 4);
+    printPut(lruCache, 3, 2);
     cout << ", ";
-    printGet(lruCache, 1);
+    printGet(lruCache, 2);
     cout << ", ";
     printGet(lruCache, 3);
-    cout << ", ";
-    printGet(lruCache, 4);
     cout << "]" << endl;
 
     return 0;

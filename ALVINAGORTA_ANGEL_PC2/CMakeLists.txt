@@ -17,3 +17,6 @@ function(add_pc2_target target_name source_file)
 endfunction()
 
 add_pc2_target(pc2_demo_lru "demos/demo_lru.cpp")
+add_pc2_target(pc2_demo_lru2 "demos/demo_lru2.cpp")
+add_pc2_target(pc2_demo_lru3 "demos/demo_lru3.cpp")
+add_pc2_target(pc2_benchmark "benchmark/benchmark.cpp")

@@ -55,7 +55,7 @@ Explica brevemente la idea principal de la solución.
 ### Complejidad
 
 - Tiempo: O(1) , la que solicita el problema
-- Espacio:
+- Espacio: 
 
 ### Invariante o idea clave
 
@@ -92,9 +92,9 @@ cmake --build build
 ### Casos de prueba
 
 - Describe al menos 3 casos:
-1. Caso pedido en el problema
-2. 
-3. 
+1. Caso principal
+2. Caso estandar
+3. Caso borde
 
 ### Historial de commits
 
