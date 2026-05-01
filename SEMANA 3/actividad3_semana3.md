@@ -48,10 +48,6 @@
 
 #### Bloque 2
 
-    |Archivo | Salida/observable importante | Idea estructural | Argumento de costo, espacio o diseño |
-    |---|---|---|---|
-
-
 1. En `demo_sllist.cpp`, ¿qué secuencia deja más clara la coexistencia de comportamiento tipo pila y tipo cola dentro de `SLList`?
     * La secuencia que deja más clara la coexistencia de comportamiento es:
     ```

@@ -58,7 +58,7 @@ int main() {
     auto fin3 = high_resolution_clock::now();
     auto duracion3 = duration_cast<milliseconds>(fin3 - inicio3);
 
-    // CAPACITY 3000 CASO LIMITE
+    // CAPACITY 3000 - LIMITE
     LRUCache cache4(3000);
     auto inicio4 = high_resolution_clock::now();
     for (int i = 0; i < repeticiones; i++) {

@@ -1,4 +1,5 @@
 #include "LRUCache.h"
+#include <iostream>
 
 void LRUCache::moveToFront(Node* w) {
 
@@ -32,9 +33,19 @@ void LRUCache::put(int key, int value) {
         if (n == capacity) {
             Node* lru = dummy.prev;   
             hashMap.erase(lru->key);
-            removeNode(lru);          
+            removeNode(lru);         
         }
         Node* newNode = addBefore(dummy.next, key, value);
         hashMap[key] = newNode;
     }
+}
+
+void LRUCache::printCache() {
+    std::cout << "Frente - Mas Reciente ";  
+    Node* current = dummy.next;
+    while (current != &dummy) {
+        std::cout << "(" << current->key << ", " << current->value << ") ";
+        current = current->next;
+    }
+    std::cout << "Final - Menos Reciente\n\n";
 }
